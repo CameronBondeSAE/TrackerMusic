@@ -30,6 +30,11 @@ public class LittleTest : MonoBehaviour
     private void NotePlayedEvent(MP_CONTROL newNotePlayed)
     {
         // Your code goes here
-        Debug.Log(newNotePlayed.anote + " : Vol = "+newNotePlayed.volume);
+        if (newNotePlayed.main.sample == 0)
+        {
+            Debug.Log(newNotePlayed.main.sample.ToString() + " : Vol = "+newNotePlayed.volume);
+            
+        }
+        
     }
 }
