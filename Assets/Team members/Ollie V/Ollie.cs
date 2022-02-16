@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using SharpMik;
 using SharpMik.Player;
+using UnityEditor.Search;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Ollie : MonoBehaviour
 {
@@ -10,10 +13,15 @@ public class Ollie : MonoBehaviour
     public SharpMikManager sharpMikManager;
     public GameObject prefabNote;
     private GameObject cube;
-    private List<GameObject> cubes;
+    public List<GameObject> cubes;
     private Vector3 targetPosition;
     private Vector3 currentPosition;
-    private float speed = 0.5f;
+    private float duration;
+    public short volume;
+    
+    public Vector3 deadCubePosition;
+    public GameObject spherePrefab;
+    
     
     void Start()
     {
@@ -22,6 +30,8 @@ public class Ollie : MonoBehaviour
 
         // GPG230 stuff
         UnityThread.initUnityThread();
+        
+        cubes = new List<GameObject>();
     }
 
     // GPG230 stuff
@@ -36,27 +46,27 @@ public class Ollie : MonoBehaviour
     // Your code goes here
     private void NotePlayedEvent(MP_CONTROL newNotePlayed)
     {
-        cubes = new List<GameObject>();
         targetPosition = new Vector3(0,0,0);
 
         if (newNotePlayed.main.sample >= 10)
         {
             cube = Instantiate(prefabNote);
-            cube.transform.position = new Vector3(Random.Range(-20, 20), Random.Range(-20, 20));
+            cube.GetComponent<OllieCube>().ollie = this;
+            cube.transform.position = new Vector3(Random.Range(-70, 70), Random.Range(-20, 10), 350);
             cubes.Add(cube);
         }
-        
-        for (int i = 0; i < cubes.Count; i++)
+
+        if (newNotePlayed.main.sample == 3 && cubes.Count>= 1)
         {
-            // currentPosition = new Vector3(10,10,0);
-            // print("position = " + currentPosition);
-            // cube.transform.position = Vector3.Lerp(currentPosition,targetPosition, 2f);
-            // print("target = " + targetPosition);
-            if (cube.transform.position != targetPosition)
-            {
-                Vector3 newPos = Vector3.MoveTowards(cube.transform.position, targetPosition, speed * Time.deltaTime);
-                cube.transform.position = newPos;
-            }
+            GameObject oneCube = cubes[Random.Range(0, cubes.Count)];
+            deadCubePosition = oneCube.transform.position;
+            GameObject o = Instantiate(spherePrefab);
+            o.transform.position = deadCubePosition;
+            cube.GetComponent<OllieCube>().tweener.Kill();
+            Destroy(oneCube);
         }
+
+        //set volume publicly to access from sphere?
+        volume = newNotePlayed.volume;
     }
 }
