@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using SharpMik;
 using SharpMik.Player;
 using UnityEngine;
 
 namespace Tom
 {
-    public class TomsTest : MonoBehaviour
+    public class MusicPulse : MonoBehaviour
     {
-        // The music player
         public SharpMikManager sharpMikManager;
-        public GameObject cubePrefab;
-        public float forceMultiplier = 1f;
+        public int instrument;
+        public float scaleMultiplier = 0.1f;
     
         void Start()
         {
@@ -34,10 +34,25 @@ namespace Tom
         private void NotePlayedEvent(MP_CONTROL newNotePlayed)
         {
             // Your code goes here
-            Vector3 spawnPosition = new Vector3(newNotePlayed.main.sample, 0, 0);
-            GameObject newCube = Instantiate(cubePrefab, spawnPosition, Quaternion.identity);
-            newCube.GetComponent<Rigidbody>().AddForce(Vector3.up * newNotePlayed.volume * forceMultiplier);
-            Destroy(newCube, 5f);
+            if (newNotePlayed.main.sample == instrument)
+            {
+                DOTween.To(GetScale, SetScale, newNotePlayed.volume * scaleMultiplier, 1f).OnComplete(ResetScale);
+            }
+        }
+
+        private void SetScale(float newValue)
+        {
+            transform.localScale = new Vector3(newValue, newValue, newValue);
+        }
+
+        private float GetScale()
+        {
+            return transform.localScale.x;
+        }
+
+        private void ResetScale()
+        {
+            DOTween.To(GetScale, SetScale, 1f, 1f);
         }
     }
 }
