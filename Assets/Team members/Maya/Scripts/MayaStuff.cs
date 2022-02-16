@@ -134,7 +134,8 @@ public class MayaStuff : MonoBehaviour
             {
                 //spotlights[lightChosen].GetComponent<Light>().enabled = true;
                 //spotlights[lightChosen].GetComponent<Light>().enabled = false;
-                //spotlights[lightChosen].GetComponent<Light>().DOIntensity(3500, 0.5f).SetEase(Ease.Flash);
+                spotlights[lightChosen].GetComponent<Light>().intensity = 3500;
+                spotlights[lightChosen].GetComponent<Light>().DOIntensity(0, 0.5f).SetEase(Ease.Flash);
             }
         }
         
