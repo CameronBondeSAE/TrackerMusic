@@ -32,7 +32,8 @@ public class CubeLogic : MonoBehaviour
 // Simple scale for example
         thingToMessWith.localScale = new Vector3(animatedValue, animatedValue, animatedValue);
         transform.Rotate(0,note*Time.deltaTime,0);
-        
+        //transform.translate in self mode // moving in local space relative to a parent 
+        //transform.parent // to parent the cubes to the planet
         
     }
 

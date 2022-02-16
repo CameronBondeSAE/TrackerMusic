@@ -438,7 +438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sharpMikManager: {fileID: 101090828}
-  cubeObject: {fileID: 4131797168186698898, guid: 29bb475d5766e3b4398e49643f9f975a, type: 3}
+  cubeObject: {fileID: 4131797168186698898, guid: 8680c12d64675b448a8b02e27b5dc334, type: 3}
   newColour: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &1337882828
 Transform:
@@ -716,7 +716,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c81af2382df4f3e49b5651a2a74ce32a, type: 2}
+  - {fileID: 2100000, guid: 2ab07a4012c619f4f806abe0590ccaaf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
