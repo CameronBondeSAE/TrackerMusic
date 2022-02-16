@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class Cylinder : MonoBehaviour
+public class Rain : MonoBehaviour
 {
 	public byte instrument;
 	public byte note;
@@ -23,13 +23,13 @@ public class Cylinder : MonoBehaviour
 	}
 
 	// Start is called before the first frame update
-    void Start()
-    {
-	    GetComponent<Renderer>().material.color = colour;
-	    transform.position = new Vector3(note, 0f, 1+instrument);
-	    StartCoroutine(TurnOnTurnOff());
-	    Destroy(gameObject,2f);
-    }
+	void Start()
+	{
+		GetComponent<ParticleSystemRenderer>().material.color = colour;
+		transform.position = new Vector3(note, 0f, 1+instrument);
+		//StartCoroutine(TurnOnTurnOff());
+		Destroy(gameObject,5f);
+	}
     
     
 }

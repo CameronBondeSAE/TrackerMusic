@@ -1,13 +1,14 @@
 fileFormatVersion: 2
 <<<<<<< Updated upstream:Assets/Team members/Maya/Materials.meta
-guid: 4f7e9d8289f489a429b88bcaa020ef6f
+guid: 54e0d546dfda0354b831a60fadde6384
 folderAsset: yes
 DefaultImporter:
 =======
-guid: db80df39531f77f4ba6d28ebb1080c8e
-PrefabImporter:
->>>>>>> Stashed changes:Assets/Team members/Aaron/CubePrefab.prefab.meta
+guid: 2b0041b1e78e02641869d9511d4c357b
+NativeFormatImporter:
+>>>>>>> Stashed changes:Assets/Team members/Luke/M_Cylinder.mat.meta
   externalObjects: {}
+  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
