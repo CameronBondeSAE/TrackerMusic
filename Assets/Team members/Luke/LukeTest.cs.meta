@@ -3,7 +3,10 @@ guid: f0639f71b397dfa4ab127a540de67c4f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - sharpMikManager: {fileID: 3460620535522036950, guid: d43ecaf54e7642a49b7fced66df180db, type: 3}
+  - prefabNote: {fileID: 7811088927965684598, guid: 4f90f8f455f89944eb6a225b16ce7b58, type: 3}
+  - prefabFlash: {fileID: 5506450503563674603, guid: e2b1708987d54c547a158575bd69e7da, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
