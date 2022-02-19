@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -7,6 +8,7 @@ using UnityEditor.Search;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+
 public class Ollie : MonoBehaviour
 {
     // The music player
@@ -14,6 +16,7 @@ public class Ollie : MonoBehaviour
     public GameObject prefabNote;
     private GameObject cube;
     public List<GameObject> cubes;
+    public List<Byte> notes;
     private Vector3 targetPosition;
     private Vector3 currentPosition;
     private float duration;
@@ -21,6 +24,7 @@ public class Ollie : MonoBehaviour
     
     public Vector3 deadCubePosition;
     public GameObject spherePrefab;
+    public GameObject cylinderPrefab;
     
     
     void Start()
@@ -47,6 +51,9 @@ public class Ollie : MonoBehaviour
     private void NotePlayedEvent(MP_CONTROL newNotePlayed)
     {
         targetPosition = new Vector3(0,0,0);
+        //doesn't add to list :(
+        notes = new List<byte>(newNotePlayed.main.note);
+        notes.Add(newNotePlayed.main.note);
 
         if (newNotePlayed.main.sample >= 10)
         {
@@ -64,6 +71,29 @@ public class Ollie : MonoBehaviour
             o.transform.position = deadCubePosition;
             cube.GetComponent<OllieCube>().tweener.Kill();
             Destroy(oneCube);
+        }
+        
+        if (newNotePlayed.muted <= 0)
+        {
+            //list is not adding bytes - maybe an issue with <Byte>?
+            //notes = new List<Byte>(newNotePlayed.main.sample);
+            for (int i = 0; i < notes.Count; i++)
+            {
+                //notes.Add(newNotePlayed.main.sample);
+            }
+            //MuteManagerUI.activeChannels MIGHT work, but cannot access activeChannels
+            //for (int j = 0; j < MuteManagerUI.activeChannels.Length; j++)
+            {
+                GameObject go = Instantiate(cylinderPrefab);
+                short mpControlVolume = (short) (newNotePlayed.volume / 40);
+                go.transform.position = new Vector3(newNotePlayed.anote, -10, 0) + new Vector3(newNotePlayed.main.sample, -10, 0);
+            }
+            
+            // go.transform.localScale = new Vector3(mpControlVolume, mpControlVolume, mpControlVolume);
+            // go.GetComponent<Renderer>().material.color = colours[mpControl.main.sample];
+				
+            // HDRP renderer doesn't seem to like material.colour as above. So change the shader variable directly
+            //go.GetComponent<Renderer>().material.SetVector("_Colour", colours[newNotePlayed.main.sample]);
         }
 
         //set volume publicly to access from sphere?
