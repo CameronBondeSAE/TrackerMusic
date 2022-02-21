@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using SharpMik.Player;
 using UnityEngine;
 
 public class MuteManagerUI : MonoBehaviour
@@ -7,6 +8,8 @@ public class MuteManagerUI : MonoBehaviour
 	public SharpMikManager sharpMikManager;
 
 	public bool[] activeChannels;
+	public int height = 25;
+	public int width = 100;
 
 	private void Awake()
 	{
@@ -42,9 +45,9 @@ public class MuteManagerUI : MonoBehaviour
 
 		GUILayout.EndHorizontal();
 
-		GUILayout.BeginHorizontal();
+		GUILayout.BeginVertical();
 		GUI.enabled = true;
-		if (GUILayout.Button("All active"))
+		if (GUILayout.Button("All active", GUILayout.Width(width), GUILayout.Height(height)))
 		{
 			for (int i = 0; i < activeChannels.Length; i++)
 			{
@@ -53,7 +56,7 @@ public class MuteManagerUI : MonoBehaviour
 			}
 		}
 
-		if (GUILayout.Button("All mute"))
+		if (GUILayout.Button("All mute", GUILayout.Width(width), GUILayout.Height(height)))
 		{
 			for (int i = 0; i < activeChannels.Length; i++)
 			{
@@ -66,7 +69,20 @@ public class MuteManagerUI : MonoBehaviour
 		// {
 		// 	sharpMikManager.player.Play(sharpMikManager.ModuleAsset.text);
 		// }
-		GUILayout.EndHorizontal();
+		if (GUILayout.Button("Next bar", GUILayout.Width(width), GUILayout.Height(height)))
+		{
+			// sharpMikManager.player.FastForwardTo(ModPlayer.mod.sngpos+1);
+			sharpMikManager.player.SetPosition(ModPlayer.mod.sngpos+1);			
+		}
+		if (GUILayout.Button("Previous bar", GUILayout.Width(width), GUILayout.Height(height)))
+		{
+			// sharpMikManager.player.FastForwardTo(ModPlayer.mod.sngpos+1);
+			if (ModPlayer.mod.sngpos>0)
+			{
+				sharpMikManager.player.SetPosition(ModPlayer.mod.sngpos-1);
+			}
+		}
+		GUILayout.EndVertical();
 	}
 
 }
