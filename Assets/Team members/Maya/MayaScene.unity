@@ -201,7 +201,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33003349}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2157,6 +2157,7 @@ MonoBehaviour:
   shapes:
   - {fileID: 1809581413}
   - {fileID: 1126674728}
+  - {fileID: 647709328}
   materials:
   - {fileID: 2100000, guid: e2fd8d14ae26b8f4e8789e1b10d4babd, type: 2}
   - {fileID: 2100000, guid: 99393f7c3e8f6774db86f4395efdde92, type: 2}
@@ -2774,7 +2775,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.16862743, g: 0.9137255, b: 0.8417373, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.9052632, a: 1}
   m_Intensity: 0
   m_Range: 30
   m_SpotAngle: 30
@@ -2991,7 +2992,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0, g: 0.36833492, b: 0.6320754, a: 1}
+  m_Color: {r: 0, g: 0.022237714, b: 0.93333334, a: 1}
   m_Intensity: 0
   m_Range: 30
   m_SpotAngle: 30
