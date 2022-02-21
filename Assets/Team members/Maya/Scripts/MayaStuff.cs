@@ -64,7 +64,7 @@ public class MayaStuff : MonoBehaviour
             shakeTheCore();
             //Debug.Log(newNotePlayed.anote + " : Vol = "+newNotePlayed.volume);
         }
-        if (newNotePlayed.main.sample == 19 && newNotePlayed.muted <= 0) 
+        if (newNotePlayed.main.sample == 8 && newNotePlayed.muted <= 0) 
         {
             makeCubes();
         }
@@ -154,15 +154,15 @@ public class MayaStuff : MonoBehaviour
                 GameObject side1 = Instantiate(shapes[2],
                     new Vector3(Random.Range(1, 50), 0, 13f),
                     Quaternion.identity);
-                side1.transform.localScale = new Vector3(0.1f, sizeByVol *20, 0.1f);
+                side1.transform.localScale = new Vector3(0.1f, sizeByVol *10, 0.1f);
                 Vector3 side1Pos = side1.transform.position;
                 GameObject side2 = Instantiate(shapes[2],
                     new Vector3(-side1Pos.x, side1Pos.y, side1Pos.z),
                     Quaternion.identity);
-                side2.transform.localScale = new Vector3(0.1f, (sizeByVol * 20), 0.1f);
+                side2.transform.localScale = new Vector3(0.1f, (sizeByVol * 10), 0.1f);
                 side1.transform.parent = cubeLeft.transform;
-                side1.transform.DOMove(new Vector3(-1000, 0, 0), 180f);
-                side2.transform.DOMove(new Vector3(1000, 0, 0), 180f);
+                side1.transform.DOMove(new Vector3(-1000, 0, 0), 90f);
+                side2.transform.DOMove(new Vector3(1000, 0, 0), 90f);
                 cubeLeft.transform.DORotate(new Vector3(0, 0, -270), 10f);
                 cubeRight.transform.DORotate(new Vector3(0, 0, 270), 10f);
                 //side1.transform.DOScale(new Vector3(0.1f, 1, 0.1f), 2f);
