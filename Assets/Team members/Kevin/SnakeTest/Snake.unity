@@ -455,6 +455,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereObject: {fileID: 7995380464004170281, guid: 2cda54906f6d39d4198ebbc9cfc3b96c, type: 3}
   snakeLength: 10
+  offset: {x: 0, y: 0, z: -1}
+  sphereTransforms: []
 --- !u!4 &1876679084
 Transform:
   m_ObjectHideFlags: 0
