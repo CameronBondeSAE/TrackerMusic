@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 namespace Aaron
@@ -7,6 +8,9 @@ namespace Aaron
     public class AaronShaderScript : MonoBehaviour
     {
         public MeshRenderer meshRenderer;
+        public int changeTimer = 1;
+
+        private Color color;
         
         // Start is called before the first frame update
         void Start()
@@ -17,7 +21,17 @@ namespace Aaron
         // Update is called once per frame
         void Update()
         {
-            meshRenderer.material.SetColor("_Colour", new Color(Random.value, Random.value, Random.value, 1f));
+            FindObjectOfType<MusicThing>().InstrumentPlayedEvent += ChangeColour;
+        }
+
+        void ChangeColour()
+        {
+            meshRenderer.material.SetColor("_Colour",Colour());
+        }
+
+        Color Colour()
+        {
+            return color = new Color(Random.value, Random.value, Random.value, 1f);
         }
     }
 }
