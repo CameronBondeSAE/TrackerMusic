@@ -29,12 +29,25 @@ public class MayaStuff : MonoBehaviour
     //light stuff
     public GameObject lightingRig;
     public List<GameObject> spotlights;
+    
+    //the dance floor (perlin noise)
+    public GameObject origin;
+    public int maxCubes;
+    public Vector3 originOffset;
+    public Vector3 sceneFloor;
+    public GameObject prefabCube;
+    public float divisor;
 
     void Start()
     {
         //3d stuff
         defaultCoreScale = core.GetComponent<Transform>().localScale;
         DOTween.SetTweensCapacity(1000, 1000);
+        
+        //dance floor
+        sceneFloor = new Vector3(0, -5, -15);
+        originOffset = new Vector3(maxCubes / 2f, 0, maxCubes / 2f);
+        MakeSomeNoise();
 
 
         // Subscribing to C# Event when a note plays
@@ -42,6 +55,24 @@ public class MayaStuff : MonoBehaviour
 
         // GPG230 stuff
         UnityThread.initUnityThread();
+    }
+
+    private void MakeSomeNoise()
+    {
+        //sceneFloor = new Vector3(0, -5, -15);
+        
+        origin = new GameObject("middle");
+        origin.transform.position = sceneFloor;
+        //origin = Instantiate(origin, sceneFloor, Quaternion.identity);
+        for (int j = 0; j < maxCubes; j++)
+        {
+            for (int i = 0; i < maxCubes; i++)
+            {
+                GameObject spawnedCube = Instantiate(prefabCube, origin.transform);
+                spawnedCube.transform.localPosition = new Vector3(j - originOffset.x, Mathf.PerlinNoise(j/divisor, i/divisor), i - originOffset.z);
+                spawnedCube.transform.localScale = new Vector3(1, Mathf.PerlinNoise(j/divisor, i/divisor)*2f, 1);
+            }
+        }
     }
 
     // GPG230 stuff
@@ -53,7 +84,7 @@ public class MayaStuff : MonoBehaviour
     private void NotePlayedEvent(MP_CONTROL newNotePlayed)
     {
         // Your code goes here
-        // Debug.Log(newNotePlayed.anote + " : Vol = "+newNotePlayed.volume);
+        Debug.Log("Vol = "+newNotePlayed.volume);
         if (newNotePlayed.main.sample == 6 && newNotePlayed.muted <= 0)
         {
             createCreature();
@@ -163,8 +194,8 @@ public class MayaStuff : MonoBehaviour
                 side1.transform.parent = cubeLeft.transform;
                 side1.transform.DOMove(new Vector3(-1000, 0, 0), 90f);
                 side2.transform.DOMove(new Vector3(1000, 0, 0), 90f);
-                cubeLeft.transform.DORotate(new Vector3(0, 0, -270), 10f);
-                cubeRight.transform.DORotate(new Vector3(0, 0, 270), 10f);
+                cubeLeft.transform.DORotate(new Vector3(0, 0, -359), 10f);
+                cubeRight.transform.DORotate(new Vector3(0, 0, 359), 10f);
                 //side1.transform.DOScale(new Vector3(0.1f, 1, 0.1f), 2f);
                 //side2.transform.DOScale(new Vector3(0.1f, 1, 0.1f), 2f);
                 side2.transform.parent = cubeRight.transform;

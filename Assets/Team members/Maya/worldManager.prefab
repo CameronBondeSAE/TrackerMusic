@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4661401467055760107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4661401467055760105}
+  - component: {fileID: 4661401467055760104}
+  m_Layer: 0
+  m_Name: worldManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4661401467055760105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4661401467055760107}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.12111, y: -1.9150815, z: 0.2196827}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4661401467055760104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4661401467055760107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd4f598fe6e71d54489e4f52c2a8c2f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharpMikManager: {fileID: 0}
+  shapes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  materials:
+  - {fileID: 2100000, guid: e2fd8d14ae26b8f4e8789e1b10d4babd, type: 2}
+  - {fileID: 2100000, guid: 99393f7c3e8f6774db86f4395efdde92, type: 2}
+  - {fileID: 2100000, guid: 6fa3946acf136b5479626067eec4e352, type: 2}
+  - {fileID: 2100000, guid: dfecfa01d856ce74aa8a0a97aeee1aed, type: 2}
+  - {fileID: 2100000, guid: d33b7bbbaa58df34c98479a1837c1025, type: 2}
+  - {fileID: 2100000, guid: fc3ef674cbebc5f47b65077ee61f8e7d, type: 2}
+  - {fileID: 2100000, guid: b441c3d3564c3b34ba22e90903aa4196, type: 2}
+  core: {fileID: 0}
+  lightingRig: {fileID: 0}
+  spotlights:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  origin: {fileID: 3443092140263631205, guid: e6d92c45c8ce2a143a888f89530fd7a7, type: 3}
+  maxCubes: 50
+  originOffset: {x: 0, y: 0, z: 0}
+  sceneFloor: {x: 0, y: 0, z: 0}
+  prefabCube: {fileID: 4783459027158602981, guid: 3f05d8df60f0f0241a70334dc021a0c1, type: 3}
+  divisor: 5
