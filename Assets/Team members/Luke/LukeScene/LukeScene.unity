@@ -452,7 +452,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: cda8cc25936ecd540bcbcfa49a8f85c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -490,7 +490,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 667987072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 75, y: 9.337713, z: 35.6}
+  m_LocalPosition: {x: 75, y: 9.337713, z: -3.3}
   m_LocalScale: {x: 128.66985, y: 24.01, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -542,8 +542,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sharpMikManager: {fileID: 275949038}
-  prefabNote: {fileID: 3556901192594442035, guid: d14374b0a456eab4e92b88a0cb93ee0f, type: 3}
-  prefabFlash: {fileID: 5506450503563674603, guid: e2b1708987d54c547a158575bd69e7da, type: 3}
+  prefabNote: {fileID: 7811088927965684598, guid: 4f90f8f455f89944eb6a225b16ce7b58, type: 3}
+  prefabFlash: {fileID: 5506450503563674603, guid: 8b0f7f97eaa67d84ebb3fbeec853e67e, type: 3}
   colours: []
 --- !u!1 &1909725321
 GameObject:

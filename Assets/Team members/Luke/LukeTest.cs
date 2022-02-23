@@ -15,6 +15,7 @@ public class LukeTest : MonoBehaviour
     public GameObject prefabFlash;
     public List<Color> colours = new List<Color>(32);
 
+    
     void Start()
     {
 	    for (int i = 0; i < 32; i++)
@@ -48,7 +49,7 @@ public class LukeTest : MonoBehaviour
 	    short volume = newNotePlayed.volume;
 	    
 	    GameObject go = Instantiate(prefabNote);
-	    Rain goScript = go.GetComponent<Rain>();
+	    Cylinder goScript = go.GetComponent<Cylinder>();
 	    goScript.instrument = instrument;
 	    goScript.note = note;
 	    goScript.volume = volume;
