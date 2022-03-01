@@ -542,9 +542,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sharpMikManager: {fileID: 275949038}
-  prefabNote: {fileID: 7811088927965684598, guid: 4f90f8f455f89944eb6a225b16ce7b58, type: 3}
+  prefabRain: {fileID: 7811088927965684598, guid: 4f90f8f455f89944eb6a225b16ce7b58, type: 3}
   prefabFlash: {fileID: 5506450503563674603, guid: 8b0f7f97eaa67d84ebb3fbeec853e67e, type: 3}
   colours: []
+  instrumentList: 
+  instrumentIndex: 0
 --- !u!1 &1909725321
 GameObject:
   m_ObjectHideFlags: 0

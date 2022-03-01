@@ -11,11 +11,12 @@ public class LukeTest : MonoBehaviour
 {
     // The music player
     public SharpMikManager sharpMikManager;
-    public GameObject prefabNote;
+    public GameObject prefabRain;
     public GameObject prefabFlash;
     public List<Color> colours = new List<Color>(32);
+    public List<byte> instrumentList;
+    public int instrumentIndex;
 
-    
     void Start()
     {
 	    for (int i = 0; i < 32; i++)
@@ -42,27 +43,45 @@ public class LukeTest : MonoBehaviour
     }
 
     private void NotePlayedEvent(MP_CONTROL newNotePlayed)
-    {
+    { 
 	    // Your code goes here
 	    byte instrument = newNotePlayed.main.sample;
 	    byte note = newNotePlayed.anote;
 	    short volume = newNotePlayed.volume;
-	    
-	    GameObject go = Instantiate(prefabNote);
-	    Cylinder goScript = go.GetComponent<Cylinder>();
-	    goScript.instrument = instrument;
-	    goScript.note = note;
-	    goScript.volume = volume;
-	    goScript.colour = colours[instrument];
-	    if (instrument == 3)
+
+	    if (!instrumentList.Contains(instrument))
 	    {
-		    GameObject flash = Instantiate(prefabFlash);
-		    Flash flashScript = flash.GetComponent<Flash>();
-		    flashScript.instrument = instrument;
-		    flashScript.note = note;
-		    flashScript.volume = volume;
-		    flashScript.intensity = volume*10;
-		    flashScript.duration = volume/10;
+		    instrumentList.Add(instrument);
+	    }
+	    instrumentIndex = instrumentList.IndexOf(instrument);
+
+	    switch (instrumentIndex)
+	    {
+		    case 0:
+			    //Cloud
+			    //code
+			    break;
+		    case 1:
+			    //Rain
+			    GameObject go = Instantiate(prefabRain);
+			    Cylinder goScript = go.GetComponent<Cylinder>();
+			    goScript.instrument = instrument;
+			    goScript.note = note;
+			    goScript.volume = volume;
+			    goScript.colour = colours[instrument];
+			    break;
+		    case 2:
+			    //Lightning
+			    GameObject flash = Instantiate(prefabFlash);
+			    Flash flashScript = flash.GetComponent<Flash>();
+			    flashScript.instrument = instrument;
+			    flashScript.note = note;
+			    flashScript.volume = volume;
+			    flashScript.intensity = volume*10;
+			    flashScript.duration = volume/10;
+			    break;
+		    default:
+			    goto case 2;
 	    }
     }
 }
