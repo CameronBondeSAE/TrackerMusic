@@ -4,7 +4,7 @@ using SharpMik;
 using SharpMik.Player;
 using UnityEngine;
 
-public class MayaStuff : MonoBehaviour
+public class KevinLittle : MonoBehaviour
 {
     // The music player
     public SharpMikManager sharpMikManager;
@@ -30,7 +30,11 @@ public class MayaStuff : MonoBehaviour
     private void NotePlayedEvent(MP_CONTROL newNotePlayed)
     {
         // Your code goes here
-        // Debug.Log(newNotePlayed.anote + " : Vol = "+newNotePlayed.volume);
+        if (newNotePlayed.main.sample == 0)
+        {
+            Debug.Log(newNotePlayed.main.sample.ToString() + " : Vol = "+newNotePlayed.volume);
+            
+        }
         
     }
 }

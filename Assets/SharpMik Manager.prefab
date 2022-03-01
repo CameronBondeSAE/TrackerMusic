@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7257821693549335881}
   - component: {fileID: 3460620535522036950}
+  - component: {fileID: -3205674763028112275}
   - component: {fileID: 1076173443729872149}
   m_Layer: 0
   m_Name: SharpMik Manager
@@ -47,6 +48,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FinalGain: 0.75
   ModuleAsset: {fileID: 4900000, guid: a76aae380a8b5c342814bccdd309c7c8, type: 3}
+--- !u!114 &-3205674763028112275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4142397547529963636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad0b1b15fc5cb846bca6a64cc756950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharpMikManager: {fileID: 3460620535522036950}
+  activeChannels: 
 --- !u!82 &1076173443729872149
 AudioSource:
   m_ObjectHideFlags: 0
