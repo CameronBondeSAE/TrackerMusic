@@ -6,6 +6,7 @@ using SharpMik;
 using SharpMik.Player;
 using TMPro;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -34,6 +35,7 @@ public class MayaStuff : MonoBehaviour
     private GameObject textRight;
     public List<String> wordsToUse;*/
     public GameObject textBox;
+    public TMP_FontAsset[] fonts;
     public Transform[] textPoints;
     private String textToWrite;
     
@@ -102,14 +104,15 @@ public class MayaStuff : MonoBehaviour
         Debug.Log("Vol = "+newNotePlayed.volume);
         if (newNotePlayed.main.sample == 6 && newNotePlayed.muted <= 0)
         {
+            textBox.GetComponent<TextMeshPro>().font = fonts[1];
             textToWrite = "PAP";
             createText();
             createCreature();
-            
         }
 
         if (newNotePlayed.main.sample == 4 && newNotePlayed.volume == 64)
         {
+            textBox.GetComponent<TextMeshPro>().font = fonts[0];
             textToWrite = "BOOM";
             createText();
             shakeTheCore();
