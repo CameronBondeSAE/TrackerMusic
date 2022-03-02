@@ -37,6 +37,7 @@ public class MayaStuff : MonoBehaviour
     public GameObject textBox;
     public TMP_FontAsset[] fonts;
     public Transform[] textPoints;
+    private int pointChosen;
     private String textToWrite;
     
 
@@ -105,6 +106,7 @@ public class MayaStuff : MonoBehaviour
         if (newNotePlayed.main.sample == 6 && newNotePlayed.muted <= 0)
         {
             textBox.GetComponent<TextMeshPro>().font = fonts[1];
+            pointChosen = Random.Range(0,4);
             textToWrite = "PAP";
             createText();
             createCreature();
@@ -113,6 +115,10 @@ public class MayaStuff : MonoBehaviour
         if (newNotePlayed.main.sample == 4 && newNotePlayed.volume == 64)
         {
             textBox.GetComponent<TextMeshPro>().font = fonts[0];
+            /*float size = 5f;
+            textBox.transform.DOScale(new Vector3(size, size, size), 0.25f).SetEase(Ease.InBounce);
+            textBox.transform.DOScale(new Vector3(1,1,1), 0.75f);*/
+            pointChosen = 1;
             textToWrite = "BOOM";
             createText();
             shakeTheCore();
@@ -141,12 +147,13 @@ public class MayaStuff : MonoBehaviour
 
         void createText()
         {
-            textBox.SetActive(false);
+            if (textBox.activeSelf)
+                textBox.SetActive(false);
             textBox.GetComponent<TextMeshPro>().text = textToWrite;
-            int point = Random.Range(0, 7);
-            textBox.transform.position = new Vector3(textPoints[point].transform.position.x,
-                textPoints[point].transform.position.y, textPoints[point].transform.position.z);
-            textBox.transform.rotation = textPoints[point].rotation;
+
+            textBox.transform.position = new Vector3(textPoints[pointChosen].transform.position.x,
+                textPoints[pointChosen].transform.position.y, textPoints[pointChosen].transform.position.z);
+            textBox.transform.rotation = textPoints[pointChosen].rotation;
             textBox.SetActive(true);
         }
 
@@ -195,7 +202,6 @@ public class MayaStuff : MonoBehaviour
                 piece2.transform.parent = right.transform;
                 piece1.SetActive(true);
                 piece2.SetActive(true);
-
             }
         }
         //cube maker]
@@ -244,10 +250,6 @@ public class MayaStuff : MonoBehaviour
                 side2.SetActive(true);
                 
             }
-   
-
-
-
         }
         
 
