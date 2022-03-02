@@ -28,11 +28,14 @@ public class MayaStuff : MonoBehaviour
     public GameObject core;
     
     //text stuff
-    public GameObject textBox;
+    /*public GameObject textBox;
     private GameObject textParent;
     private GameObject textLeft;
     private GameObject textRight;
-    public List<String> wordsToUse;
+    public List<String> wordsToUse;*/
+    public GameObject textBox;
+    public Transform[] textPoints;
+    private String textToWrite;
     
 
     //light stuff
@@ -57,6 +60,9 @@ public class MayaStuff : MonoBehaviour
         sceneFloor = new Vector3(0, -5, -15);
         originOffset = new Vector3(maxCubes / 2f, 0, maxCubes / 2f);
         MakeSomeNoise();
+        
+        //text setup
+        textBox.SetActive(false);
 
 
         // Subscribing to C# Event when a note plays
@@ -96,32 +102,49 @@ public class MayaStuff : MonoBehaviour
         Debug.Log("Vol = "+newNotePlayed.volume);
         if (newNotePlayed.main.sample == 6 && newNotePlayed.muted <= 0)
         {
+            textToWrite = "PAP";
+            createText();
             createCreature();
+            
         }
 
-        if (newNotePlayed.main.sample == 4 && newNotePlayed.volume == 64) 
+        if (newNotePlayed.main.sample == 4 && newNotePlayed.volume == 64)
         {
+            textToWrite = "BOOM";
+            createText();
             shakeTheCore();
             //Debug.Log(newNotePlayed.anote + " : Vol = "+newNotePlayed.volume);
         }
-        if (newNotePlayed.main.sample == 8 && newNotePlayed.muted <= 0) 
-        {
-            makeCubes();
-        }
         if (newNotePlayed.main.sample == 8 && newNotePlayed.muted <= 0)
         {
+            //createText();
+            makeCubes();
             spinLights();
-        }        
+        }
         if (newNotePlayed.main.sample == 5 && newNotePlayed.muted <= 0)
         {
+            textToWrite = "TSS";
+           // createText();
             flashLights();
+            
+            //Debug.Log("light flashed");
+        }
+        if (newNotePlayed.main.sample == 19 && newNotePlayed.muted <= 0)
+        {
+            textToWrite = "SPSssh";
+            //createText();
             //Debug.Log("light flashed");
         }
 
         void createText()
         {
-           
-            
+            textBox.SetActive(false);
+            textBox.GetComponent<TextMeshPro>().text = textToWrite;
+            int point = Random.Range(0, 7);
+            textBox.transform.position = new Vector3(textPoints[point].transform.position.x,
+                textPoints[point].transform.position.y, textPoints[point].transform.position.z);
+            textBox.transform.rotation = textPoints[point].rotation;
+            textBox.SetActive(true);
         }
 
         //creature spawner 
@@ -154,7 +177,7 @@ public class MayaStuff : MonoBehaviour
                 GameObject piece1 = Instantiate(shapes[shapeChosen],
                     new Vector3(Random.Range(4f, 12f), Random.Range(-4.0f, 4f), Random.Range(4f, 12f)),
                     Quaternion.identity);
-                GameObject piece2 = Instantiate(shapes[shapeChosen],
+                GameObject piece2 = Instantiate(shapes[shapeChosen], 
                     new Vector3(-piece1.transform.position.x, piece1.transform.position.y, piece1.transform.position.z),
                     Quaternion.identity);
                 piece1.GetComponent<Renderer>().material = material;
