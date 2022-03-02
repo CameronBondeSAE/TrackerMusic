@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using SharpMik;
 using SharpMik.Player;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
@@ -25,6 +26,14 @@ public class MayaStuff : MonoBehaviour
     public List<GameObject> shapes;
     public Object[] materials;
     public GameObject core;
+    
+    //text stuff
+    public GameObject textBox;
+    private GameObject textParent;
+    private GameObject textLeft;
+    private GameObject textRight;
+    public List<String> wordsToUse;
+    
 
     //light stuff
     public GameObject lightingRig;
@@ -109,6 +118,11 @@ public class MayaStuff : MonoBehaviour
             //Debug.Log("light flashed");
         }
 
+        void createText()
+        {
+           
+            
+        }
 
         //creature spawner 
         void createCreature()
