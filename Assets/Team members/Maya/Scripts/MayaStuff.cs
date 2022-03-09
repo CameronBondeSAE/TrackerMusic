@@ -6,6 +6,7 @@ using SharpMik;
 using SharpMik.Player;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
@@ -17,16 +18,21 @@ public class MayaStuff : MonoBehaviour
     public SharpMikManager sharpMikManager;
 
     //3d stuff
+    //dancing shapes
     private GameObject parent;
     private GameObject left;
-    private GameObject right;    
+    private GameObject right; 
+    public List<GameObject> shapes;
+    public Object[] materials;   
+    //background lines
     private GameObject cubeParent;
     private GameObject cubeLeft;
     private GameObject cubeRight;
+    //central sphere
     private Vector3 defaultCoreScale;
-    public List<GameObject> shapes;
-    public Object[] materials;
     public GameObject core;
+    //triangles
+    [FormerlySerializedAs("triangleController")] public GameObject trianglePrefab;
 
     //text stuff
     /*public GameObject textBox;
@@ -111,8 +117,9 @@ public class MayaStuff : MonoBehaviour
             //textBox.GetComponent<TextMeshPro>().fontSize = textFontSize;
             pointChosen = 2;
             textToWrite = "CAT";
-            createText();
+            //createText();
             createCreature();
+            //Debug.Log("text created = cat");
         }
 
         if (newNotePlayed.main.sample == 4 && newNotePlayed.volume == 64)
@@ -121,23 +128,27 @@ public class MayaStuff : MonoBehaviour
             //textBox.GetComponent<TextMeshPro>().fontSize = textFontSize *1.2f;
             pointChosen = 1;
             textToWrite = "BOOT";
-            createText();
+            triangleSpin();
             shakeTheCore();
             //Debug.Log(newNotePlayed.anote + " : Vol = "+newNotePlayed.volume);
+            //createText();
+            //Debug.Log("text created = boot");
         }
         if (newNotePlayed.main.sample == 8 && newNotePlayed.muted <= 0)
         {
             //createText();
+            //triangleSpin();
             makeCubes();
             spinLights();
         }
-        if (newNotePlayed.main.sample == 5 && newNotePlayed.muted <= 0)
+        if (newNotePlayed.main.sample == 5 && newNotePlayed.volume == 64)
         {
             Debug.Log("instrument = "+newNotePlayed.main.sample + "Vol = " +newNotePlayed.volume );
             //textBox.GetComponent<TextMeshPro>().fontSize = textFontSize/2f;
             pointChosen = 0;
             textToWrite = "TSS";
-            createText();
+            //createText();
+            //Debug.Log("text created = tss");
             flashLights();
             
             //Debug.Log("light flashed");
@@ -159,19 +170,20 @@ public class MayaStuff : MonoBehaviour
             textBox[i].SetActive(true);*/
             //Destroy(textBox, 0.2f);
             boxChosen = pointChosen;
-            if (!textBox[boxChosen].activeSelf)
-                textBox[boxChosen].SetActive(true);
             textBox[boxChosen].GetComponent<TextMeshPro>().text = textToWrite;
+            if (textBox[boxChosen].activeSelf)
+                textBox[boxChosen].SetActive(false);
 
             textBox[boxChosen].transform.position = new Vector3(textPoints[pointChosen].transform.position.x,
                 textPoints[pointChosen].transform.position.y, textPoints[pointChosen].transform.position.z);
             textBox[boxChosen].transform.rotation = textPoints[pointChosen].rotation;
             textBox[boxChosen].transform.localScale = new Vector3(1, 1, 1);
 
-            float size = 1.6f;
-            textBox[boxChosen].transform.DOScale(new Vector3(size, size) ,0.75f).SetEase(Ease.OutBounce);
-            textBox[boxChosen].transform.DOScale(new Vector3(0.7f, 0.7f), 0.25f);
-            //textBox[boxChosen].SetActive(true);
+            float size = 3.2f;
+            textBox[boxChosen].transform.DOScale(new Vector3(size, size) , 1.34f);
+            textBox[boxChosen].transform.DOScale(new Vector3(size/3f, size/3f), 1.66f);
+            
+            textBox[boxChosen].SetActive(true);
         }
 
         //creature spawner 
@@ -268,7 +280,21 @@ public class MayaStuff : MonoBehaviour
                 
             }
         }
-        
+
+        void triangleSpin()
+        {
+            //Destroy(triangleController,2f);
+            int spinFactor = Random.Range(-359, 359);
+            GameObject triangleCopy =
+                Instantiate(trianglePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            triangleCopy.transform.DOMove(new Vector3(0, 0, -7.75f), 1.75f, false).SetEase(Ease.OutSine);
+            triangleCopy.transform.DORotate(new Vector3(0, 0, spinFactor), 1.75f, RotateMode.WorldAxisAdd)
+                    .SetEase(Ease.OutSine);
+            triangleCopy.SetActive(true);
+            Destroy(triangleCopy,2f);
+                //triangleController.SetActive(false);
+            
+        }
 
         //Orb shaker
         void shakeTheCore()
@@ -277,7 +303,7 @@ public class MayaStuff : MonoBehaviour
             //Vector3 defaultSize = core.GetComponent<Transform>().localScale;
            //float size = newNotePlayed.volume / 10f;
 
-            core.transform.DOScale(new Vector3(size, size, size), 0.75f).SetEase(Ease.OutBounce);
+            core.transform.DOScale(new Vector3(size, size, size), 0.75f);
             core.transform.DOScale(new Vector3(defaultCoreScale.x, defaultCoreScale.y, defaultCoreScale.z), 0.25f);
         }
         //point lights

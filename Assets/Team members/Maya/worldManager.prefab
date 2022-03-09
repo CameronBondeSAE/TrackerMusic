@@ -59,6 +59,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: fc3ef674cbebc5f47b65077ee61f8e7d, type: 2}
   - {fileID: 2100000, guid: b441c3d3564c3b34ba22e90903aa4196, type: 2}
   core: {fileID: 0}
+  triangleController: {fileID: 0}
   textBox:
   - {fileID: 0}
   - {fileID: 0}
