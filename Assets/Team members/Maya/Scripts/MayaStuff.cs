@@ -159,8 +159,8 @@ public class MayaStuff : MonoBehaviour
             //createText();
             //Debug.Log("light flashed");
         }
-
-        void createText()
+    }
+    void createText()
         {
             /*textBox[i].SetActive(false);
             Instantiate(textBox[i], new Vector3(textPoints[pointChosen].transform.position.x,
@@ -255,7 +255,7 @@ public class MayaStuff : MonoBehaviour
             int cubes = 10;
             for (int i = 0; i < cubes; i++)
             {
-                float sizeByVol = newNotePlayed.volume;
+                float sizeByVol = Random.Range(32, 64);
                 
                 GameObject side1 = Instantiate(shapes[2],
                     new Vector3(Random.Range(1, 50), 0, 13f),
@@ -324,6 +324,4 @@ public class MayaStuff : MonoBehaviour
                 spotlights[lightChosen].GetComponent<Light>().DOIntensity(0, 0.5f).SetEase(Ease.Flash);
             }
         }
-        
-    }
 }
