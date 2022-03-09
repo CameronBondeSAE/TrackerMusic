@@ -59,16 +59,20 @@ MonoBehaviour:
   - {fileID: 2100000, guid: fc3ef674cbebc5f47b65077ee61f8e7d, type: 2}
   - {fileID: 2100000, guid: b441c3d3564c3b34ba22e90903aa4196, type: 2}
   core: {fileID: 0}
-  textBox: {fileID: 0}
+  textBox:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  fonts:
+  - {fileID: 11400000, guid: d8edf59a41adb264ea96973a5bd975d7, type: 2}
+  - {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   textPoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  textFontSize: 16
   lightingRig: {fileID: 0}
   spotlights:
   - {fileID: 0}
