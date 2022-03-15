@@ -48,6 +48,7 @@ public class MayaStuff : MonoBehaviour
 
     //light stuff
     public GameObject lightingRig;
+    public List<GameObject> pointLights;
     public List<GameObject> spotlights;
     
     //the dance floor (perlin noise)
@@ -114,6 +115,7 @@ public class MayaStuff : MonoBehaviour
             textToWrite = "CAT";
             //createText();
             createCreature();
+            flashPoints();
             //Debug.Log("text created = cat");
         }
 
@@ -121,8 +123,8 @@ public class MayaStuff : MonoBehaviour
         {
 
             textToWrite = "BOOT";
-            triangleSpin();
             shakeTheCore();
+            flashLights();
             //Debug.Log(newNotePlayed.anote + " : Vol = "+newNotePlayed.volume);
             //createText();
             //Debug.Log("text created = boot");
@@ -132,9 +134,9 @@ public class MayaStuff : MonoBehaviour
 
             textToWrite = "vwooOOOO";
             //createText();
-            //triangleSpin();
+            flashPoints();
             makeCubes();
-            spinLights();
+            spinPoints();
         }
         if (newNotePlayed.main.sample == 5 && newNotePlayed.volume == 64)
         {
@@ -144,6 +146,7 @@ public class MayaStuff : MonoBehaviour
             textToWrite = "TSS";
             //createText();
             //Debug.Log("text created = tss");
+            triangleSpin();
             flashLights();
             
             //Debug.Log("light flashed");
@@ -153,12 +156,13 @@ public class MayaStuff : MonoBehaviour
 
             textToWrite = "SPSssh";
             flashLights();
+            flashPoints();
             //createText();
             //Debug.Log("light flashed");
         }
-    }
-    void createText()
-    {
+    } 
+        void createText()
+        {
         pointChosen = Random.Range(0, 9);
         GameObject textToSpawn = 
             Instantiate(textBox, new Vector3(textPoints[pointChosen].position.x, textPoints[pointChosen].position.y,
@@ -167,8 +171,8 @@ public class MayaStuff : MonoBehaviour
         
         Destroy(textToSpawn, 1.35f);
 
-    }
-
+        }
+    
         //creature spawner 
         void createCreature()
         {
@@ -269,12 +273,12 @@ public class MayaStuff : MonoBehaviour
             //Destroy(triangleController,2f);
             int spinFactor = Random.Range(-359, 359);
             GameObject triangleCopy =
-                Instantiate(trianglePrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            triangleCopy.transform.DOMove(new Vector3(0, 0, -7.75f), 1.75f, false).SetEase(Ease.OutSine);
-            triangleCopy.transform.DORotate(new Vector3(0, 0, spinFactor), 1.75f, RotateMode.WorldAxisAdd)
+                Instantiate(trianglePrefab, new Vector3(0, 0, 8), Quaternion.identity);
+            triangleCopy.transform.DOMove(new Vector3(0, 0, -7.75f), 3.5f, false).SetEase(Ease.OutSine);
+            triangleCopy.transform.DORotate(new Vector3(0, 0, spinFactor), 3.5f, RotateMode.WorldAxisAdd)
                     .SetEase(Ease.OutSine);
             triangleCopy.SetActive(true);
-            Destroy(triangleCopy,2f);
+            Destroy(triangleCopy,4f);
                 //triangleController.SetActive(false);
             
         }
@@ -290,10 +294,17 @@ public class MayaStuff : MonoBehaviour
             core.transform.DOScale(new Vector3(defaultCoreScale.x, defaultCoreScale.y, defaultCoreScale.z), 0.25f);
         }
         //point lights
-        void spinLights()
+        void spinPoints()
         {
             float spin = Random.Range(-360, 360);
             lightingRig.transform.DORotate(new Vector3(spin, spin, spin), 2.5f, RotateMode.Fast);
+        }
+
+        void flashPoints()
+        {
+            int lightToFlash = Random.Range(0, 5);
+            pointLights[lightToFlash].GetComponent<Light>().intensity = 6000;
+            pointLights[lightToFlash].GetComponent<Light>().DOIntensity(1750, 0.5f);
         }
         //spotlights
         void flashLights()
