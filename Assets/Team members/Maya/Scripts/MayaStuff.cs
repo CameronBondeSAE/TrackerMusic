@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using SharpMik;
@@ -7,8 +6,6 @@ using SharpMik.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.TextCore.Text;
-using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -40,7 +37,7 @@ public class MayaStuff : MonoBehaviour
     private GameObject textLeft;
     private GameObject textRight;
     public List<String> wordsToUse;*/
-    public List<GameObject> textBox;
+    public GameObject textBox;
     public TMP_FontAsset[] fonts;
     public Transform[] textPoints;
     private int pointChosen;
@@ -72,8 +69,6 @@ public class MayaStuff : MonoBehaviour
         originOffset = new Vector3(maxCubes / 2f, 0, maxCubes / 2f);
         MakeSomeNoise();
         
-        //text setup
-        textBox[boxChosen].SetActive(false);
 
 
         // Subscribing to C# Event when a note plays
@@ -115,7 +110,7 @@ public class MayaStuff : MonoBehaviour
         {
             //textBox.GetComponent<TextMeshPro>().font = fonts[1];
             //textBox.GetComponent<TextMeshPro>().fontSize = textFontSize;
-            pointChosen = 2;
+
             textToWrite = "CAT";
             //createText();
             createCreature();
@@ -124,9 +119,7 @@ public class MayaStuff : MonoBehaviour
 
         if (newNotePlayed.main.sample == 4 && newNotePlayed.volume == 64)
         {
-            textBox[boxChosen].GetComponent<TextMeshPro>().font = fonts[1];
-            //textBox.GetComponent<TextMeshPro>().fontSize = textFontSize *1.2f;
-            pointChosen = 1;
+
             textToWrite = "BOOT";
             triangleSpin();
             shakeTheCore();
@@ -136,6 +129,8 @@ public class MayaStuff : MonoBehaviour
         }
         if (newNotePlayed.main.sample == 8 && newNotePlayed.muted <= 0)
         {
+
+            textToWrite = "vwooOOOO";
             //createText();
             //triangleSpin();
             makeCubes();
@@ -145,7 +140,7 @@ public class MayaStuff : MonoBehaviour
         {
             Debug.Log("instrument = "+newNotePlayed.main.sample + "Vol = " +newNotePlayed.volume );
             //textBox.GetComponent<TextMeshPro>().fontSize = textFontSize/2f;
-            pointChosen = 0;
+
             textToWrite = "TSS";
             //createText();
             //Debug.Log("text created = tss");
@@ -155,36 +150,24 @@ public class MayaStuff : MonoBehaviour
         }
         if (newNotePlayed.main.sample == 19 && newNotePlayed.muted <= 0)
         {
+
             textToWrite = "SPSssh";
+            flashLights();
             //createText();
             //Debug.Log("light flashed");
         }
     }
     void createText()
-        {
-            /*textBox[i].SetActive(false);
-            Instantiate(textBox[i], new Vector3(textPoints[pointChosen].transform.position.x,
-                    textPoints[pointChosen].transform.position.y, textPoints[pointChosen].transform.position.z),
-                textBox[i].transform.rotation);
-            textBox[i].GetComponent<TextMeshPro>().text = textToWrite;
-            textBox[i].SetActive(true);*/
-            //Destroy(textBox, 0.2f);
-            boxChosen = pointChosen;
-            textBox[boxChosen].GetComponent<TextMeshPro>().text = textToWrite;
-            if (textBox[boxChosen].activeSelf)
-                textBox[boxChosen].SetActive(false);
+    {
+        pointChosen = Random.Range(0, 9);
+        GameObject textToSpawn = 
+            Instantiate(textBox, new Vector3(textPoints[pointChosen].position.x, textPoints[pointChosen].position.y,
+                textPoints[pointChosen].position.z), Quaternion.identity);
+        textToSpawn.GetComponent<TextMeshPro>().text = textToWrite;
+        
+        Destroy(textToSpawn, 1.35f);
 
-            textBox[boxChosen].transform.position = new Vector3(textPoints[pointChosen].transform.position.x,
-                textPoints[pointChosen].transform.position.y, textPoints[pointChosen].transform.position.z);
-            textBox[boxChosen].transform.rotation = textPoints[pointChosen].rotation;
-            textBox[boxChosen].transform.localScale = new Vector3(1, 1, 1);
-
-            float size = 3.2f;
-            textBox[boxChosen].transform.DOScale(new Vector3(size, size) , 1.34f);
-            textBox[boxChosen].transform.DOScale(new Vector3(size/3f, size/3f), 1.66f);
-            
-            textBox[boxChosen].SetActive(true);
-        }
+    }
 
         //creature spawner 
         void createCreature()
