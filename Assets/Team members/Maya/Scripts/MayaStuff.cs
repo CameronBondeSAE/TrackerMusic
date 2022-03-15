@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using SharpMik;
@@ -7,8 +6,6 @@ using SharpMik.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.TextCore.Text;
-using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -40,7 +37,7 @@ public class MayaStuff : MonoBehaviour
     private GameObject textLeft;
     private GameObject textRight;
     public List<String> wordsToUse;*/
-    public List<GameObject> textBox;
+    public GameObject textBox;
     public TMP_FontAsset[] fonts;
     public Transform[] textPoints;
     private int pointChosen;
@@ -51,6 +48,7 @@ public class MayaStuff : MonoBehaviour
 
     //light stuff
     public GameObject lightingRig;
+    public List<GameObject> pointLights;
     public List<GameObject> spotlights;
     
     //the dance floor (perlin noise)
@@ -72,8 +70,6 @@ public class MayaStuff : MonoBehaviour
         originOffset = new Vector3(maxCubes / 2f, 0, maxCubes / 2f);
         MakeSomeNoise();
         
-        //text setup
-        textBox[boxChosen].SetActive(false);
 
 
         // Subscribing to C# Event when a note plays
@@ -113,81 +109,57 @@ public class MayaStuff : MonoBehaviour
         //Debug.Log("Vol = "+newNotePlayed.volume);
         if (newNotePlayed.main.sample == 6 && newNotePlayed.muted <= 0)
         {
-            //textBox.GetComponent<TextMeshPro>().font = fonts[1];
-            //textBox.GetComponent<TextMeshPro>().fontSize = textFontSize;
-            pointChosen = 2;
-            textToWrite = "CAT";
+            //textToWrite = "CAT";
             //createText();
-            createCreature();
-            //Debug.Log("text created = cat");
+            CreateCreature();
+            FlashPoints();
         }
 
         if (newNotePlayed.main.sample == 4 && newNotePlayed.volume == 64)
         {
-            textBox[boxChosen].GetComponent<TextMeshPro>().font = fonts[1];
-            //textBox.GetComponent<TextMeshPro>().fontSize = textFontSize *1.2f;
-            pointChosen = 1;
-            textToWrite = "BOOT";
-            triangleSpin();
-            shakeTheCore();
-            //Debug.Log(newNotePlayed.anote + " : Vol = "+newNotePlayed.volume);
-            //createText();
-            //Debug.Log("text created = boot");
+            //textToWrite = "BOOT";
+            ShakeTheCore();
+            FlashLights();
         }
         if (newNotePlayed.main.sample == 8 && newNotePlayed.muted <= 0)
         {
+
+            //textToWrite = "vwooOOOO";
             //createText();
-            //triangleSpin();
-            makeCubes();
-            spinLights();
+            FlashPoints();
+            MakeCubes();
+            SpinPoints();
         }
         if (newNotePlayed.main.sample == 5 && newNotePlayed.volume == 64)
         {
-            Debug.Log("instrument = "+newNotePlayed.main.sample + "Vol = " +newNotePlayed.volume );
-            //textBox.GetComponent<TextMeshPro>().fontSize = textFontSize/2f;
-            pointChosen = 0;
-            textToWrite = "TSS";
+            //textToWrite = "TSS";
             //createText();
-            //Debug.Log("text created = tss");
-            flashLights();
-            
-            //Debug.Log("light flashed");
+            TriangleSpin();
+            FlashLights();
         }
         if (newNotePlayed.main.sample == 19 && newNotePlayed.muted <= 0)
         {
-            textToWrite = "SPSssh";
+            FlashLights();
+            FlashPoints();
+            //textToWrite = "SPSssh";
             //createText();
-            //Debug.Log("light flashed");
         }
-    }
-    void createText()
+    } 
+        //textboxes
+        void CreateText()
         {
-            /*textBox[i].SetActive(false);
-            Instantiate(textBox[i], new Vector3(textPoints[pointChosen].transform.position.x,
-                    textPoints[pointChosen].transform.position.y, textPoints[pointChosen].transform.position.z),
-                textBox[i].transform.rotation);
-            textBox[i].GetComponent<TextMeshPro>().text = textToWrite;
-            textBox[i].SetActive(true);*/
-            //Destroy(textBox, 0.2f);
-            boxChosen = pointChosen;
-            textBox[boxChosen].GetComponent<TextMeshPro>().text = textToWrite;
-            if (textBox[boxChosen].activeSelf)
-                textBox[boxChosen].SetActive(false);
+        pointChosen = Random.Range(0, 9);
+        GameObject textToSpawn = 
+            Instantiate(textBox, new Vector3(textPoints[pointChosen].position.x, textPoints[pointChosen].position.y,
+                textPoints[pointChosen].position.z), Quaternion.identity);
+        textToSpawn.GetComponent<TextMeshPro>().text = textToWrite;
+        
+        Destroy(textToSpawn, 1.35f);
 
-            textBox[boxChosen].transform.position = new Vector3(textPoints[pointChosen].transform.position.x,
-                textPoints[pointChosen].transform.position.y, textPoints[pointChosen].transform.position.z);
-            textBox[boxChosen].transform.rotation = textPoints[pointChosen].rotation;
-            textBox[boxChosen].transform.localScale = new Vector3(1, 1, 1);
-
-            float size = 3.2f;
-            textBox[boxChosen].transform.DOScale(new Vector3(size, size) , 1.34f);
-            textBox[boxChosen].transform.DOScale(new Vector3(size/3f, size/3f), 1.66f);
-            
-            textBox[boxChosen].SetActive(true);
         }
-
+    
         //creature spawner 
-        void createCreature()
+        void CreateCreature()
         {
             Destroy(parent);
 
@@ -234,7 +206,7 @@ public class MayaStuff : MonoBehaviour
             }
         }
         //cube maker]
-        void makeCubes()
+        void MakeCubes()
         { 
             Destroy(cubeParent, 10f);
             //Material material = (Material) materials[Random.Range(0, materials.Length)];
@@ -280,24 +252,21 @@ public class MayaStuff : MonoBehaviour
                 
             }
         }
-
-        void triangleSpin()
+        //triangles
+        void TriangleSpin()
         {
-            //Destroy(triangleController,2f);
             int spinFactor = Random.Range(-359, 359);
             GameObject triangleCopy =
-                Instantiate(trianglePrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            triangleCopy.transform.DOMove(new Vector3(0, 0, -7.75f), 1.75f, false).SetEase(Ease.OutSine);
-            triangleCopy.transform.DORotate(new Vector3(0, 0, spinFactor), 1.75f, RotateMode.WorldAxisAdd)
+                Instantiate(trianglePrefab, new Vector3(0, 0, 8), Quaternion.identity);
+            triangleCopy.transform.DOMove(new Vector3(0, 0, -7.75f), 3.5f, false).SetEase(Ease.OutSine);
+            triangleCopy.transform.DORotate(new Vector3(0, 0, spinFactor), 3.5f, RotateMode.WorldAxisAdd)
                     .SetEase(Ease.OutSine);
             triangleCopy.SetActive(true);
-            Destroy(triangleCopy,2f);
-                //triangleController.SetActive(false);
-            
+            Destroy(triangleCopy,4f);
         }
 
         //Orb shaker
-        void shakeTheCore()
+        void ShakeTheCore()
         {
             float size = 5f;
             //Vector3 defaultSize = core.GetComponent<Transform>().localScale;
@@ -307,13 +276,20 @@ public class MayaStuff : MonoBehaviour
             core.transform.DOScale(new Vector3(defaultCoreScale.x, defaultCoreScale.y, defaultCoreScale.z), 0.25f);
         }
         //point lights
-        void spinLights()
+        void SpinPoints()
         {
             float spin = Random.Range(-360, 360);
             lightingRig.transform.DORotate(new Vector3(spin, spin, spin), 2.5f, RotateMode.Fast);
         }
-        //spotlights
-        void flashLights()
+        //point lights flashing
+        void FlashPoints()
+        {
+            int lightToFlash = Random.Range(0, 5);
+            pointLights[lightToFlash].GetComponent<Light>().intensity = 6000;
+            pointLights[lightToFlash].GetComponent<Light>().DOIntensity(1750, 0.5f);
+        }
+        //spotlights flashing
+        void FlashLights()
         {
             int lightChosen = Random.Range(0, spotlights.Count);
             for (int i = 0; i < lightChosen; i++)
