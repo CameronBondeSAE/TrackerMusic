@@ -9,6 +9,10 @@ public class Cylinder : MonoBehaviour
 	public byte note;
 	public short volume;
 	public Color colour;
+	public float minXSpawn = 0f;
+	public float maxXSpawn = 10f;
+	public float minZSpawn = 0f;
+	public float maxZSpawn = 10f;
 	
 	private IEnumerator TurnOnTurnOff()
 	{
@@ -26,7 +30,7 @@ public class Cylinder : MonoBehaviour
     void Start()
     {
 	    GetComponent<Renderer>().material.color = colour;
-	    transform.position = new Vector3(note, 0f, 1+instrument);
+	    transform.position = new Vector3(minXSpawn+note/32f*(maxXSpawn-minXSpawn), 0f, minZSpawn+instrument/32f*(maxZSpawn-minZSpawn));
 	    StartCoroutine(TurnOnTurnOff());
 	    Destroy(gameObject,2f);
     }
