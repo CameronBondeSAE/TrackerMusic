@@ -4,6 +4,7 @@ using DG.Tweening;
 using SharpMik;
 using SharpMik.Player;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
@@ -106,14 +107,16 @@ public class MayaStuff : MonoBehaviour
     private void NotePlayedEvent(MP_CONTROL newNotePlayed)
     {
         // Your code goes here
-        Debug.Log("instrument = "+newNotePlayed.main.sample + "Vol = "+newNotePlayed.volume);
-        if (newNotePlayed.main.sample == 6 && newNotePlayed.muted <= 0)
+        Debug.Log("instrument = "+newNotePlayed.main.sample +" Vol = "+newNotePlayed.volume);
+        if (newNotePlayed.main.sample == 6 && newNotePlayed.volume == 64)
         {
             textToWrite = "snare";
             CreateText();
             CreateCreature();
-            FlashPoints();
+            //FlashPoints();
         }
+        else if (newNotePlayed.main.sample == 6 && newNotePlayed.volume == 48)
+            FlashPoints();
 
         if (newNotePlayed.main.sample == 4 && newNotePlayed.volume == 64)
         {
@@ -168,16 +171,19 @@ public class MayaStuff : MonoBehaviour
             textFontSize = Random.Range(4, 12);
             pointChosen = Random.Range(0, 9);
             //textToWrite = "something OBVIOUS";
-            Quaternion textRot = new Quaternion(Random.Range(-10, 10), 1, Random.Range(-10, 10),
-                Random.Range(-10, 10));
+            Quaternion textRot = new Quaternion(Random.Range(-45, 45), Random.Range(-45, 45), Random.Range(-45, 45),
+                Random.Range(-45, 45));
+            Vector3 textSpin = new Vector3(Random.Range(-180, 180), Random.Range(-180, 180), Random.Range(-180, 180));
             GameObject textToSpawn = 
                 Instantiate(textBox, new Vector3(textPoints[pointChosen].position.x, textPoints[pointChosen].position.y,
-                    textPoints[pointChosen].position.z), textRot);
+                    textPoints[pointChosen].position.z), Quaternion.identity);
             textToSpawn.GetComponent<TextMeshPro>().text = textToWrite;
             textToSpawn.GetComponent<TextMeshPro>().fontSize = textFontSize;
+            textToSpawn.transform.DORotate(textSpin, 1.5f, RotateMode.Fast);
+            textToSpawn.transform.DOScale((textSpin/10), 1.5f);
         
         
-            Destroy(textToSpawn, 0.5f);
+            Destroy(textToSpawn, 0.25f);
         }
     
         //creature spawner 
