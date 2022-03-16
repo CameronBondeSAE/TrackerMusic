@@ -43,7 +43,7 @@ public class MayaStuff : MonoBehaviour
     private int pointChosen;
     private int boxChosen;
     private String textToWrite;
-    public int textFontSize = 16;
+    public int textFontSize;
     
 
     //light stuff
@@ -106,20 +106,21 @@ public class MayaStuff : MonoBehaviour
     private void NotePlayedEvent(MP_CONTROL newNotePlayed)
     {
         // Your code goes here
-        //Debug.Log("Vol = "+newNotePlayed.volume);
+        Debug.Log("instrument = "+newNotePlayed.main.sample + "Vol = "+newNotePlayed.volume);
         if (newNotePlayed.main.sample == 6 && newNotePlayed.muted <= 0)
         {
-            //textToWrite = "CAT";
-            //createText();
+            textToWrite = "snare";
+            CreateText();
             CreateCreature();
             FlashPoints();
         }
 
         if (newNotePlayed.main.sample == 4 && newNotePlayed.volume == 64)
         {
-            //textToWrite = "BOOT";
+            textToWrite = "kick";
             ShakeTheCore();
-            FlashLights();
+            CreateText();
+            //FlashLights();
         }
         if (newNotePlayed.main.sample == 8 && newNotePlayed.muted <= 0)
         {
@@ -127,35 +128,56 @@ public class MayaStuff : MonoBehaviour
             //textToWrite = "vwooOOOO";
             //createText();
             FlashPoints();
-            MakeCubes();
+            //MakeCubes();
             SpinPoints();
         }
         if (newNotePlayed.main.sample == 5 && newNotePlayed.volume == 64)
         {
-            //textToWrite = "TSS";
-            //createText();
-            TriangleSpin();
+            textToWrite = "hi-hat";
+            CreateText();
+            //TriangleSpin();
             FlashLights();
+            FlashPoints();
         }
         if (newNotePlayed.main.sample == 19 && newNotePlayed.muted <= 0)
         {
-            FlashLights();
+            //FlashLights();
             FlashPoints();
-            //textToWrite = "SPSssh";
-            //createText();
+            textToWrite = "crash";
+            CreateText();
+        }
+
+        if (newNotePlayed.main.sample == 2 && newNotePlayed.volume == 24)
+        {
+            TriangleSpin();
+        }
+        if (newNotePlayed.main.sample == 0 && newNotePlayed.volume == 64)
+        {
+            FlashLights();
+            SpinPoints();
+        }
+
+        if (newNotePlayed.volume == 0)
+        {
+            MakeCubes();
         }
     } 
         //textboxes
         void CreateText()
         {
-        pointChosen = Random.Range(0, 9);
-        GameObject textToSpawn = 
-            Instantiate(textBox, new Vector3(textPoints[pointChosen].position.x, textPoints[pointChosen].position.y,
-                textPoints[pointChosen].position.z), Quaternion.identity);
-        textToSpawn.GetComponent<TextMeshPro>().text = textToWrite;
+            textFontSize = Random.Range(4, 12);
+            pointChosen = Random.Range(0, 9);
+            //textToWrite = "something OBVIOUS";
+            Quaternion textRot = new Quaternion(Random.Range(-10, 10), 1, Random.Range(-10, 10),
+                Random.Range(-10, 10));
+            GameObject textToSpawn = 
+                Instantiate(textBox, new Vector3(textPoints[pointChosen].position.x, textPoints[pointChosen].position.y,
+                    textPoints[pointChosen].position.z), textRot);
+            textToSpawn.GetComponent<TextMeshPro>().text = textToWrite;
+            textToSpawn.GetComponent<TextMeshPro>().fontSize = textFontSize;
         
-        Destroy(textToSpawn, 1.35f);
-
+        
+            Destroy(textToSpawn, 0.5f);
         }
     
         //creature spawner 
@@ -186,7 +208,7 @@ public class MayaStuff : MonoBehaviour
                 float spin = Random.Range(-360, 360);
 
                 GameObject piece1 = Instantiate(shapes[shapeChosen],
-                    new Vector3(Random.Range(4f, 12f), Random.Range(-4.0f, 4f), Random.Range(4f, 12f)),
+                    new Vector3(Random.Range(8f, 16f), Random.Range(-2.5f, 6f), Random.Range(8f, 16f)),
                     Quaternion.identity);
                 GameObject piece2 = Instantiate(shapes[shapeChosen], 
                     new Vector3(-piece1.transform.position.x, piece1.transform.position.y, piece1.transform.position.z),
@@ -235,7 +257,7 @@ public class MayaStuff : MonoBehaviour
                 side1.transform.localScale = new Vector3(0.1f, sizeByVol *10, 0.1f);
                 Vector3 side1Pos = side1.transform.position;
                 GameObject side2 = Instantiate(shapes[2],
-                    new Vector3(-side1Pos.x, side1Pos.y, side1Pos.z),
+                    new Vector3(-side1Pos.x, side1Pos.y, (side1Pos.z+0.1f)),
                     Quaternion.identity);
                 side2.transform.localScale = new Vector3(0.1f, (sizeByVol * 10), 0.1f);
                 side1.transform.parent = cubeLeft.transform;
