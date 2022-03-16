@@ -27,10 +27,10 @@ public class Rain : MonoBehaviour
 	}
 
 	// Start is called before the first frame update
-	void Start()
+	void OnEnable()
 	{
 		GetComponent<ParticleSystemRenderer>().material.color = colour;
-		transform.position = new Vector3(minXSpawn+note/32f*(maxXSpawn-minXSpawn), 0f, minZSpawn+instrument/32f*(maxZSpawn-minZSpawn));
+		transform.position = new Vector3(Random.Range(minXSpawn,maxXSpawn), 0f, minZSpawn+instrument/32f*(maxZSpawn-minZSpawn));
 		//StartCoroutine(TurnOnTurnOff());
 		Destroy(gameObject,5f);
 	}

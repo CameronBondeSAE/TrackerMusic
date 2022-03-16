@@ -16,9 +16,9 @@ public class Cylinder : MonoBehaviour
 	
 	private IEnumerator TurnOnTurnOff()
 	{
-		DOTween.To(ScaleCylinder, 1f, (1+instrument)/3f+volume/20f, 0.5f);
-		yield return new WaitForSeconds(0.5f);
-		DOTween.To(ScaleCylinder, (1+instrument)/3f+volume/20f, 1f, 0.5f);
+		DOTween.To(ScaleCylinder, 1f, (1+instrument)/10f+volume/20f, 0.3f);
+		yield return new WaitForSeconds(0.3f);
+		DOTween.To(ScaleCylinder, (1+instrument)/10f+volume/20f, 1f, 0.3f);
 	}
 	
 	public void ScaleCylinder(float newValue)
@@ -30,7 +30,7 @@ public class Cylinder : MonoBehaviour
     void Start()
     {
 	    GetComponent<Renderer>().material.color = colour;
-	    transform.position = new Vector3(minXSpawn+note/32f*(maxXSpawn-minXSpawn), 0f, minZSpawn+instrument/32f*(maxZSpawn-minZSpawn));
+	    transform.position = new Vector3(Random.Range(minXSpawn,maxXSpawn), 0f, minZSpawn+instrument/32f*(maxZSpawn-minZSpawn));
 	    StartCoroutine(TurnOnTurnOff());
 	    Destroy(gameObject,2f);
     }
