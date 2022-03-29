@@ -17,6 +17,8 @@ public class LukeTest : MonoBehaviour
     public List<byte> instrumentList;
     public int instrumentIndex;
 
+    public LukeTerrain terrain;
+
     void Start()
     {
 	    for (int i = 0; i < 32; i++)
@@ -43,12 +45,14 @@ public class LukeTest : MonoBehaviour
     }
 
     private void NotePlayedEvent(MP_CONTROL newNotePlayed)
-    { 
+    {
 	    // Your code goes here
 	    byte instrument = newNotePlayed.main.sample;
 	    byte note = newNotePlayed.anote;
 	    short volume = newNotePlayed.volume;
 
+	    terrain.VolumeEffect(volume);
+	    
 	    if (!instrumentList.Contains(instrument))
 	    {
 		    instrumentList.Add(instrument);
