@@ -860,7 +860,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1276496861}
-  - component: {fileID: 1276496860}
   m_Layer: 0
   m_Name: BasePoints
   m_TagString: Untagged
@@ -868,23 +867,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1276496860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276496859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f33af97c54e9bd47a1218660159f925, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  point1: {fileID: 326531320}
-  point2: {fileID: 161926330}
-  point3: {fileID: 620695615}
-  initialOrigin: {fileID: 1478843197}
-  spherePrefab: {fileID: 1478843193}
 --- !u!4 &1276496861
 Transform:
   m_ObjectHideFlags: 0
@@ -960,11 +942,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d43ecaf54e7642a49b7fced66df180db, type: 3}
---- !u!1 &1478843193 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1996116632413653110, guid: a19294f62f66c024ba1ab15e799f3601, type: 3}
-  m_PrefabInstance: {fileID: 6979234374272072069}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1478843197 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4137978505660520390, guid: a19294f62f66c024ba1ab15e799f3601, type: 3}
@@ -1005,8 +982,13 @@ MonoBehaviour:
   notes: 
   volume: 0
   deadCubePosition: {x: 0, y: 0, z: 0}
-  spherePrefab: {fileID: 5772629799963613824, guid: 6dd4c9df4c01c634ab9cfd1d3051fa02, type: 3}
+  spherePrefabOld: {fileID: 0}
   cylinderPrefab: {fileID: 3409791735802424642, guid: ceabfaabcc561664a843aa7eff5590f9, type: 3}
+  point1: {fileID: 326531320}
+  point2: {fileID: 161926330}
+  point3: {fileID: 620695615}
+  initialOrigin: {fileID: 1478843197}
+  spherePrefab: {fileID: 1996116632413653110, guid: a19294f62f66c024ba1ab15e799f3601, type: 3}
 --- !u!4 &1563296611
 Transform:
   m_ObjectHideFlags: 0

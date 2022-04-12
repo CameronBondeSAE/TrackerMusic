@@ -13,6 +13,8 @@ public class Ollie : MonoBehaviour
 {
     // The music player
     public SharpMikManager sharpMikManager;
+
+    #region OldStuff
     public GameObject prefabNote;
     private GameObject cube;
     public List<GameObject> cubes;
@@ -23,9 +25,22 @@ public class Ollie : MonoBehaviour
     public short volume;
     
     public Vector3 deadCubePosition;
-    public GameObject spherePrefab;
+    public GameObject spherePrefabOld;
     public GameObject cylinderPrefab;
+    #endregion
+
+    #region Sierpinski Triangle Stuff
+    private Transform[] points;
+    public Transform point1, point2, point3;
+    public Transform initialOrigin;
+    private Transform origin;
+    private Transform target;
+    private Vector3 halfwayPoint;
+    public GameObject spherePrefab;
+    private GameObject sphere;
     
+
+    #endregion
     
     void Start()
     {
@@ -36,6 +51,9 @@ public class Ollie : MonoBehaviour
         UnityThread.initUnityThread();
         
         cubes = new List<GameObject>();
+        
+        points = new[] {point1, point2, point3};
+        origin = initialOrigin;
     }
 
     // GPG230 stuff
@@ -49,6 +67,34 @@ public class Ollie : MonoBehaviour
 
     // Your code goes here
     private void NotePlayedEvent(MP_CONTROL newNotePlayed)
+    {
+        //CubesAndSpheres(newNotePlayed);
+        // ^^ Old idea
+        
+        //instantiate one sphere (origin) randomly within the triangle
+        //first rule is to select one of the three points at random (random)
+        //instantiate new sphere halfway between origin and random
+        //origin is now new origin, random is new random
+        //repeat
+        
+        NewPointInTriangle(newNotePlayed);
+    }
+
+    void NewPointInTriangle(MP_CONTROL newNotePlayed)
+    {
+        if (newNotePlayed.main.sample >= 10)
+        {
+            target = points[Random.Range(0, points.Length)];
+            halfwayPoint = (target.position + origin.position) / 2;
+            sphere = Instantiate(spherePrefab);
+            sphere.transform.position = halfwayPoint;
+            origin = sphere.transform;
+        }
+    }
+
+    #region Old Idea For Cubes Spawning and flying at player, exploding on collisions
+    
+    void CubesAndSpheres(MP_CONTROL newNotePlayed)
     {
         targetPosition = new Vector3(0,0,0);
         //doesn't add to list :(
@@ -99,4 +145,5 @@ public class Ollie : MonoBehaviour
         //set volume publicly to access from sphere?
         volume = newNotePlayed.volume;
     }
+    #endregion
 }
