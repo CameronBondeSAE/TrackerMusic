@@ -24,7 +24,7 @@ public class VoxelSpawner : MonoBehaviour
 				    
 				    GameObject go = Instantiate(voxelPrefab, gameObject.transform);
 				    go.name = i.ToString() + "." + j.ToString() + "." + k.ToString();
-				    go.transform.position = new Vector3(i,j/6f,k);
+				    go.transform.localPosition = new Vector3(i,j/6f,k);
 				    go.GetComponent<VoxelActions>().initialCondition = go.transform.position/waveLength;
 				    go.GetComponent<VoxelActions>().threshold = perlinThreshold;
 			    }

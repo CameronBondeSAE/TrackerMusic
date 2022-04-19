@@ -82,7 +82,7 @@ public class LukeTest : MonoBehaviour
 			    flashScript.note = note;
 			    flashScript.volume = volume;
 			    flashScript.intensity = volume*10;
-			    flashScript.duration = volume/10;
+			    flashScript.duration = volume/10f;
 			    break;
 		    default:
 			    goto case 2;

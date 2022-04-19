@@ -8,15 +8,13 @@ public class LukeTerrain : MonoBehaviour
 	public float baseDepth = 2f;
 	public float depth;
 	public float volume;
-	public int length = 32;
-	public int width = 32;
-	public float frequency = 5f;
+	public int length = 64;
+	public int width = 64; 
+	public float frequency = 3f;
 	public float amplitude = 1f;
-	public float xOffset = 1f;
-	public float yOffset = 1f;
-	public Vector2 offsetSpeeds = new(5,0);
-	public float angle = 0f;
-	public float changeRotationDelay = 2f;
+	public float zOffset;
+	public float xOffset;
+	public float zOffsetSpeed = 3f;
 
 	TerrainData GenerateTerrain(TerrainData terrainData)
 	{
@@ -45,15 +43,15 @@ public class LukeTerrain : MonoBehaviour
 
 	float CalculateHeight(int x, int y)
 	{
-		float xCoord = (float) x / width*frequency + xOffset;
-		float yCoord = (float) y / length*frequency + yOffset;
+		float xCoord = (float) x / width*frequency + zOffset;
+		float yCoord = (float) y / length*frequency + xOffset;
 
 		return amplitude * Mathf.PerlinNoise( xCoord,  yCoord);
 	}
 
 	public void VolumeEffect(short value)
 	{
-		volume = value/3f;
+		volume = value/2.5f;
 		StartCoroutine(TweenDepth());
 	}
 	
@@ -69,24 +67,6 @@ public class LukeTerrain : MonoBehaviour
 		depth = value;
 	}
 
-	void RotateAngle(float degrees)
-	{
-		angle = degrees;
-		offsetSpeeds = RotateVector2(offsetSpeeds, angle);
-	}
-	
-	private IEnumerator RandomRotateOffsetSpeeds()
-	{
-		float target;
-		
-		target = angle + Random.Range(-45, 45);
-
-		DOTween.To(RotateAngle, angle, target, changeRotationDelay);
-
-		yield return new WaitForSeconds(6f);
-		StartCoroutine(RandomRotateOffsetSpeeds());
-	}
-
 	public Vector2 RotateVector2(Vector2 vector, float degree)
 	{
 		return Quaternion.Euler(0,0,degree) * vector;
@@ -94,15 +74,14 @@ public class LukeTerrain : MonoBehaviour
 	
 	void Start()
 	{
-		depth = baseDepth;	
-		StartCoroutine(RandomRotateOffsetSpeeds());
+		depth = baseDepth;
+		xOffset = Random.Range(1f, 1000f);
+		zOffset = Random.Range(1f, 1000f);
 	}
 	
 	void Update()
 	{
-		offsetSpeeds = RotateVector2(offsetSpeeds, angle-Mathf.Atan2(offsetSpeeds[1],offsetSpeeds[0]));
-		xOffset += Time.deltaTime * offsetSpeeds[0];
-		yOffset += Time.deltaTime * offsetSpeeds[1];
+		zOffset += Time.deltaTime * zOffsetSpeed;
 		Terrain terrain = GetComponent<Terrain>();
 		terrain.terrainData = GenerateTerrain(terrain.terrainData);
 	}
