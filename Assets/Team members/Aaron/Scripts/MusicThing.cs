@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-<<<<<<< Updated upstream
 using DG.Tweening;
-=======
->>>>>>> Stashed changes
 using SharpMik;
 using SharpMik.Player;
 using UnityEngine;
@@ -14,11 +11,8 @@ public class MusicThing : MonoBehaviour
     // The music player
     public SharpMikManager sharpMikManager;
 
-<<<<<<< Updated upstream
-    public int instrumentIndex;
-
     public event Action InstrumentPlayedEvent;
-=======
+
     public event Action<int> Instrument15PlayedEvent;
     public event Action<int> Instrument20PlayedEvent;
     public event Action<int> Instrument26PlayedEvent;
@@ -26,33 +20,22 @@ public class MusicThing : MonoBehaviour
 
     public int instrumentIndex;
     public int noteIndex;
->>>>>>> Stashed changes
+
     
     void Start()
     {
         // Subscribing to C# Event when a note plays
         ModPlayer.NoteEvent += ModPlayerOnNoteEvent;
-<<<<<<< Updated upstream
-        
-=======
 
->>>>>>> Stashed changes
         // GPG230 stuff
         UnityThread.initUnityThread();
     }
-
-<<<<<<< Updated upstream
-=======
+    
     private void Update()
     {
         MP_CONTROL mpcontrol = new MP_CONTROL();
-        
-        
-        ModPlayer.NoteEvent += VolCheck;
-
     }
-
->>>>>>> Stashed changes
+    
     // GPG230 stuff
     private void ModPlayerOnNoteEvent(MP_CONTROL mpcontrol)
     {
@@ -64,7 +47,6 @@ public class MusicThing : MonoBehaviour
 
     private void NotePlayedEvent(MP_CONTROL newNotePlayed)
     {
-<<<<<<< Updated upstream
         // Your code goes here
         if (newNotePlayed.main.sample == instrumentIndex)
         {
@@ -74,8 +56,8 @@ public class MusicThing : MonoBehaviour
         }
         
     }
-}
-=======
+
+
         /*if (newNotePlayed.main.sample == 15)
         {
             Instrument15PlayedEvent?.Invoke(newNotePlayed.main.sample);
@@ -97,14 +79,6 @@ public class MusicThing : MonoBehaviour
         {
             NewInstrumentEvent?.Invoke(newNotePlayed.main.sample);
         }*/
-    }
-
-    void VolCheck(MP_CONTROL newNotePlayed)
-    {
-        if (newNotePlayed.main.sample == 26)
-        {
-            Debug.Log(newNotePlayed.chanvolslide);
-        }
-    }
+    
 }            
->>>>>>> Stashed changes
+
