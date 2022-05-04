@@ -28,12 +28,13 @@ public class Triangle : MonoBehaviour
     
     //WOO IT WORKS
     //Just need to merge it into the actual music script, and make it spawn based on the music
-    void Update()
-    {
-        target = points[Random.Range(0, points.Length)];
-        halfwayPoint = (target.position + origin.position) / 2;
-        sphere = Instantiate(spherePrefab);
-        sphere.transform.position = halfwayPoint;
-        origin = sphere.transform;
-    }
+    
+    // void Update()
+    // {
+    //     target = points[Random.Range(0, points.Length)];
+    //     halfwayPoint = (target.position + origin.position) / 2;
+    //     sphere = Instantiate(spherePrefab);
+    //     sphere.transform.position = halfwayPoint;
+    //     origin = sphere.transform;
+    // }
 }

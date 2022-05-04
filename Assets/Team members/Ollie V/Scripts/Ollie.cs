@@ -38,7 +38,8 @@ public class Ollie : MonoBehaviour
     private Vector3 halfwayPoint;
     public GameObject spherePrefab;
     private GameObject sphere;
-    
+    private List<GameObject> sphereList;
+
 
     #endregion
     
@@ -82,13 +83,20 @@ public class Ollie : MonoBehaviour
 
     void NewPointInTriangle(MP_CONTROL newNotePlayed)
     {
-        if (newNotePlayed.main.sample >= 10)
+        if (newNotePlayed.main.sample >= 5)
         {
             target = points[Random.Range(0, points.Length)];
             halfwayPoint = (target.position + origin.position) / 2;
             sphere = Instantiate(spherePrefab);
+            sphereList.Add(sphere);
             sphere.transform.position = halfwayPoint;
             origin = sphere.transform;
+        }
+
+        if (newNotePlayed.main.sample == 3)
+        {
+            sphereList[Random.Range(0, sphereList.Capacity-1)].transform
+                .DOPunchScale(new Vector3(5f, 5f, 5f), 1f,1,0.5f);
         }
     }
 
