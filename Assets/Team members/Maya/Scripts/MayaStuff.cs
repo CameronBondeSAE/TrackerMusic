@@ -94,6 +94,8 @@ public class MayaStuff : MonoBehaviour
                 GameObject spawnedCube = Instantiate(prefabCube, origin.transform);
                 spawnedCube.transform.localPosition = new Vector3(j - originOffset.x, Mathf.PerlinNoise(j/divisor, i/divisor), i - originOffset.z);
                 spawnedCube.transform.localScale = new Vector3(1, Mathf.PerlinNoise(j/divisor, i/divisor)*2f, 1);
+                Material material = (Material) materials[Random.Range(0, materials.Length)];
+                spawnedCube.GetComponent<Renderer>().material = material;
             }
         }
     }
@@ -110,8 +112,8 @@ public class MayaStuff : MonoBehaviour
         Debug.Log("instrument = "+newNotePlayed.main.sample +" Vol = "+newNotePlayed.volume);
         if (newNotePlayed.main.sample == 6 && newNotePlayed.volume == 64)
         {
-            textToWrite = "snare";
-            CreateText();
+            //textToWrite = "snare";
+            //CreateText();
             CreateCreature();
             //FlashPoints();
         }
@@ -120,9 +122,9 @@ public class MayaStuff : MonoBehaviour
 
         if (newNotePlayed.main.sample == 4 && newNotePlayed.volume == 64)
         {
-            textToWrite = "kick";
+            //textToWrite = "kick";
             ShakeTheCore();
-            CreateText();
+            //CreateText();
             //FlashLights();
         }
         if (newNotePlayed.main.sample == 8 && newNotePlayed.muted <= 0)
@@ -136,8 +138,8 @@ public class MayaStuff : MonoBehaviour
         }
         if (newNotePlayed.main.sample == 5 && newNotePlayed.volume == 64)
         {
-            textToWrite = "hi-hat";
-            CreateText();
+            //textToWrite = "hi-hat";
+            //CreateText();
             //TriangleSpin();
             FlashLights();
             FlashPoints();
@@ -146,8 +148,8 @@ public class MayaStuff : MonoBehaviour
         {
             //FlashLights();
             FlashPoints();
-            textToWrite = "crash";
-            CreateText();
+            //textToWrite = "crash";
+            //CreateText();
         }
 
         if (newNotePlayed.main.sample == 2 && newNotePlayed.volume == 24)
@@ -289,6 +291,8 @@ public class MayaStuff : MonoBehaviour
             triangleCopy.transform.DOMove(new Vector3(0, 0, -7.75f), 3.5f, false).SetEase(Ease.OutSine);
             triangleCopy.transform.DORotate(new Vector3(0, 0, spinFactor), 3.5f, RotateMode.WorldAxisAdd)
                     .SetEase(Ease.OutSine);
+            Material material = (Material) materials[Random.Range(0, materials.Length)];
+            triangleCopy.GetComponent<Renderer>().material = material;
             triangleCopy.SetActive(true);
             Destroy(triangleCopy,4f);
         }
@@ -299,6 +303,8 @@ public class MayaStuff : MonoBehaviour
             float size = 5f;
             //Vector3 defaultSize = core.GetComponent<Transform>().localScale;
            //float size = newNotePlayed.volume / 10f;
+            Material material = (Material) materials[Random.Range(0, materials.Length)];
+            core.GetComponent<Renderer>().material = material;
 
             core.transform.DOScale(new Vector3(size, size, size), 0.75f);
             core.transform.DOScale(new Vector3(defaultCoreScale.x, defaultCoreScale.y, defaultCoreScale.z), 0.25f);
